@@ -1,7 +1,15 @@
+import { useState } from "react";
 import { NavLink } from "react-router";
-import { FaLaptopCode } from "react-icons/fa";
+import {
+  FaLaptopCode,
+  FaTimes,
+  FaBroadcastTower,
+  FaBars,
+} from "react-icons/fa";
 
 const NavBar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const base = "transition hover:text-blue-400";
   const active = "text-blue-400 font-semibold";
 
@@ -51,7 +59,61 @@ const NavBar = () => {
             </NavLink>
           </div>
         </div>
+
+        {/* Mobile Nav */}
+        <div className="md:hidden flex items-center gap-4">
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="text-blue-400 text-xl cursor-pointer"
+            title="Menu"
+          >
+            {menuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        </div>
       </div>
+      {/* Mobile Nav */}
+      {menuOpen && (
+        <div
+          className="md:hidden bg-gray-800 border-t border-gray-700 px-6 py-4 space-y-2 
+        space-x-4 text-center text-gray-300"
+        >
+          <NavLink
+            to="/"
+            onClick={()=> setMenuOpen(false)}
+            className={({ isActive }) => (isActive ? active : base)}
+          >
+            Home
+          </NavLink>
+          <NavLink
+            to="/projects"
+            onClick={()=> setMenuOpen(false)}
+            className={({ isActive }) => (isActive ? active : base)}
+          >
+            Projects
+          </NavLink>
+          <NavLink
+            to="/blog"
+            onClick={()=> setMenuOpen(false)}
+            className={({ isActive }) => (isActive ? active : base)}
+          >
+            Blog
+          </NavLink>
+          <NavLink
+            to="/about"
+            onClick={()=> setMenuOpen(false)}
+            className={({ isActive }) => (isActive ? active : base)}
+          >
+            About
+          </NavLink>
+          <NavLink
+            to="/contact"
+            onClick={()=> setMenuOpen(false)}
+            className={({ isActive }) => (isActive ? active : base)}
+          >
+            Contact
+          </NavLink>
+        </div>
+      )}
     </nav>
   );
 };
